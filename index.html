@@ -3,82 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>EsporteIndaiatuba</title>
+    <title>Secretaria de Esportes</title>
+    <style>
+        /* --- Configurações Globais --- */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* --- Cabeçalho (Header) --- */
+        header {
+            background-color: #fff;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            /* Substitua pelo seu logo */
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            max-height: 50px;
+            margin-right: 10px;
+        }
+
+        /* --- Navegação Principal --- */
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            display: block;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.85;
+        }
+
+        /* Cores dos botões de navegação */
+        .btn-cidadao { background-color: #e74c3c; }
+        .btn-juventude { background-color: #f1c40f; color: #333;}
+        .btn-lazer { background-color: #3498db; }
+        .btn-rendimento { background-color: #2ecc71; }
+        .btn-conta { background-color: #9b59b6; }
+
+        /* --- Barra de Pesquisa --- */
+        .search-bar {
+            width: 100%;
+            margin-top: 15px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .search-bar form {
+            display: flex;
+        }
+
+        .search-bar input[type="search"] {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            border-radius: 5px 0 0 5px;
+            font-size: 14px;
+            min-width: 200px;
+        }
+
+        .search-bar button {
+            background-color: #4a4a9f; /* Roxo/Azul escuro */
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* --- Conteúdo Principal --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr; /* Coluna única por padrão */
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Layout em duas colunas para telas maiores */
+        @media (min-width: 768px) {
+            .main-content {
+                /* Aproximadamente 1/3 para posts, 2/3 para projetos */
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+
+        /* --- Coluna da Esquerda: Posts Recentes --- */
+        .recent-posts .post-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .post-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .post-card .card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            color: #fff;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0));
+        }
+
+        .post-card .date {
+            font-size: 12px;
+            display: block;
+            margin-bottom: 5px;
+            opacity: 0.9;
+        }
+
+        .post-card h3 {
+            font-size: 18px;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .recent-posts .bottom-image {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+
+        /* --- Coluna da Direita: Principais Projetos --- */
+        .main-project .project-showcase {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .project-visuals {
+            position: relative;
+            min-height: 250px;
+            margin-bottom: 20px;
+        }
+
+        .project-visuals .project-image {
+            position: absolute;
+            bottom: 0;
+        }
+
+        .project-image.img-soccer {
+            left: 10%;
+            width: 180px;
+            z-index: 2;
+        }
+
+        .project-image.img-basketball {
+            left: 35%;
+            width: 150px;
+            z-index: 1;
+        }
+
+        .project-logo {
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto 20px auto;
+        }
+
+        .project-showcase p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+
+        .btn-subscribe {
+            background-color: #3b3b8e; /* Azul escuro */
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .btn-subscribe:hover {
+            background-color: #2a2a6d;
+        }
+
+        .main-project .bottom-image {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 30px;
+        }
+        
+    </style>
 </head>
 <body>
+
     <header>
-        <div id="logo">
-            <a href="https://www.indaiatuba.sp.gov.br/"><img src="imgs/logo_esporte_cidadao.png" alt="logo esporte cidadão" height="100vh" width="350px"></a>
-        </div>
-        <div class="botao" id="botao1"><ul><a href="">Esporte Cidadão</a></ul></div>
-        <div class="botao" id="botao2"><ul><a href="">Juventude Esportiva</a></ul></div>
-        <div class="botao" id="botao3"><ul><a href="">Esportes</a></ul></div>
-        <div class="botao" id="botao4"><ul><a href="">Eventos</a></ul></div>
-    </header>
-    <main>
         <div class="container">
-            <div class="top-row">
-                <div id="news">
-                    <div class="news-tab">Notícias Recentes</div>
+            <div class="header-content">
+                
+                <a href="#" class="logo">
+                    <img src="imgs/logo_esporte_cidadao.png" alt="Logo Secretaria de Esportes" height="400px" width="400px">
+                </a>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#" class="btn-cidadao">Esporte Cidadão</a></li>
+                        <li><a href="#" class="btn-juventude">Juventude Esportiva</a></li>
+                        <li><a href="#" class="btn-lazer">Lazer Esportivo</a></li>
+                        <li><a href="#" class="btn-rendimento">Esporte de Alto Rendimento</a></li>
+                        <li><a href="#" class="btn-conta">Conta</a></li>
+                    </ul>
+                </nav>
+            </div>
 
-                    <div class="news-grid">
-                        <article class="news-card">
-                            <img src="imgs/noticia_gol_suica.jpeg" alt="Gol da Semana - Indaiatuba" class="news-image">
-                            <div class="card-body">
-                                <h3>Jovem jogador de Indaiatuba é eleito 'Gol da Semana' na Suíça</h3>
-                                <p>Um jovem atleta de Indaiatuba teve seu gol escolhido como destaque da semana durante competição realizada na Suíça. A partida chamou atenção pela técnica e velocidade do jogador.</p>
-                                <p><a href="https://maisexpressao.com.br/noticia/jovem-jogador-de-indaiatuba-e-eleito-gol-da-semana-na-suica-78146.html" target="_blank" rel="noopener">Leia a matéria completa</a></p>
-                                <p class="news-meta">Fonte: maisexpressao.com.br</p>
-                            </div>
-                        </article>
+            <div class="search-bar">
+                <form action="/search">
+                    <input type="search" placeholder="O que você procura?">
+                    <button type="submit">Pesquisar</button>
+                </form>
+            </div>
+        </div>
+    </header>
 
-                        <article class="news-card">
-                            <img src="imgs/noticia_xadrez.jpeg" alt="Xadrez em Indaiatuba" class="news-image">
-                            <div class="card-body">
-                                <h3>Indaiatuba forma campeões no xadrez e fortalece a modalidade</h3>
-                                <p>Atletas da cidade conquistaram títulos em torneios regionais, impulsionando o interesse pelo xadrez e fortalecendo programas de formação nas escolas locais.</p>
-                                <p><a href="https://maisexpressao.com.br/noticia/indaiatuba-forma-campeoes-no-xadrez-e-fortalece-a-modalidade-esportiva-na-cidade-78116.html" target="_blank" rel="noopener">Leia a matéria completa</a></p>
-                                <p class="news-meta">Fonte: maisexpressao.com.br</p>
-                            </div>
-                        </article>
+    <main>
+        <div class="container main-content">
+            
+            <aside class="recent-posts">
+                <h2>Posts Recentes</h2>
+
+                <article class="post-card">
+                    <img src="imgs/alongamento-aquecimento.jpg" alt="Mulheres se alongando ao ar livre">
+                    <div class="card-content">
+                        <span class="date">21/10/2025</span>
+                        <h3>Inscrições – Lazer Esportivo: Vagas Remanescentes</h3>
                     </div>
-    </div>
+                </article>
+
+                <article class="post-card">
+                    <img src="imgs/imagem-1760453374746-1024x819.webp" alt="Duas mulheres sorrindo na campanha Outubro Rosa">
+                    <div class="card-content">
+                        <span class="date">10/10/2025</span>
+                        <h3>Aulas de Ritmo no Barco: Especial Outubro Rosa</h3>
+                    </div>
+                </article>
+
+                <img src="https://via.placeholder.com/400x150?text=Ginástica+Rítmica+Logo" alt="Ginástica Rítmica" class="bottom-image">
+
+            </aside>
+            
+            <section class="main-project">
+                <h2>Principais Projetos</h2>
+                
+                <div class="project-showcase">
+
+                    <div class="project-visuals">
+                        <img src="imgs/istockphoto-628278074-612x612-removebg-preview.png" alt="Menino chutando bola" class="project-image img-soccer" height="200px" width="200px">
+                        <img src="imgs/2022-01-17-basquete-para-crianças-meio-removebg-preview.png" alt="Menino jogando basquete" class="project-image img-basketball" height="200px" width="200px">
+                    </div>
+
+                    <img src="imgs/logo_esporte_cidadao.png" alt="Logo Esporte Cidadão" class="project-logo">
+                    
+                    <p>
+                        O projeto ESPORTE CIDADÃO abrange todo o município com acessibilidade em 24 núcleos esportivos. Traz vagas em 21 modalidades esportivas e uma equipe de professores e coordenadores empenhados em desenvolver e organizar atividades para atender cada vez mais e melhor, oferecendo a prática de atividade física para crianças e adolescentes de 6 a 16 anos.
+                    </p>
+
+                    <a href="#" class="btn-subscribe">Inscrever-se</a>
+
+                </div>
+
+            </section>
+
+        </div>
     </main>
 
-    <footer class="site-footer" role="contentinfo">
-        <div class="footer-container">
-            <div class="footer-col">
-                <h4>Sobre nós</h4>
-                <p>EsporteIndaiatuba é um projeto que promove atividades esportivas e inclusão social na cidade.</p>
-            </div>
-
-            <div class="footer-col">
-                <h4>Suporte</h4>
-                <ul>
-                    <li><a href="#">Central de Ajuda</a></li>
-                    <li><a href="#">Fale conosco</a></li>
-                    <li><a href="#">Relatar problema</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4>Saiba mais</h4>
-                <ul>
-                    <li><a href="#">Sobre o projeto</a></li>
-                    <li><a href="#">Política de privacidade</a></li>
-                    <li><a href="#">Termos de uso</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            © <span id="currentYear"></span> EsporteIndaiatuba — Todos os direitos reservados
-        </div>
-    </footer>
-
-    <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-    </script>
 </body>
 </html>
